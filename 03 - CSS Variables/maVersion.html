@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Variables</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    html {
+      background: #193549;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      text-align: center;
+      color: white;
+      font-size: 40px;
+    }
+    .title {
+      padding-top: 50px;
+    }
+    :root {
+      --color: #ffc600;
+      --borderWidth: 10px;
+      --blur: 0px;
+    }
+    .js {
+      color: var(--color);
+    }
+    .option {
+      margin-top: 50px;
+    }
+    .pic {
+      border: var(--borderWidth) solid var(--color);
+      margin-top: 40px;
+      filter: blur(var(--blur));
+    }
+  </style>
+  <body>
+    <div class="main">
+      <h1 class="title">
+        Update CSS Variables with <span class="js">JS</span>
+      </h1>
+      <div class="option">
+        <span>Spacing:</span>
+        <input id='border' type="range" min="10" max="150" value="10" />
+        <span>Blur:</span>
+        <input id='blur' type="range" min="0" max="50" value="0" />
+        <span>Base Color</span>
+        <input id='color' type="color" value="#ffc600" />
+      </div>
+      <img class="pic" src="https://source.unsplash.com/7bwQXzbF6KE/800x500" />
+    </div>
+    <script>
+      const border = document.getElementById('border')
+      const blurDom = document.getElementById('blur')
+      const color = document.getElementById('color')
+      const html = document.documentElement
+      border.oninput = (e) => {
+        html.style.setProperty('--borderWidth', `${e.target.value}px`)
+      }
+      blurDom.oninput = (e) => {
+        html.style.setProperty('--blur', `${e.target.value}px`)
+      }
+      color.oninput = (e) => {
+        html.style.setProperty('--color', e.target.value)
+      }
+    </script>
+  </body>
+</html>

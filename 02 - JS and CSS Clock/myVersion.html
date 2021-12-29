@@ -1,71 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JS and CSS Clock</title>
-</head>
-<style>
-  *{
-    margin: 0;
-    padding: 0;
-  }
-  .main{
-    background: url('https://unsplash.it/1500/1000?image=881&blur=5');
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .littleCircle{
-    width: 350px;
-    height: 350px;
-    border-radius: 50%;
-    border: 30px solid #fff;
-    box-shadow: 0 0 0 2px #000, inset 0 0 0 2px #000;
-    display: flex;
-    justify-content: center;
-  }
-  .hour, .minute, .second{
-    background: #000;
-    width: 10px;
-    height: 175px;
-    position: absolute;
-  }
-  @keyframes rotateTime {
-  from { transform: rotateZ(0deg)}
-  to {transform: rotateZ(360deg)}
-  }
-  .second{
-    animation: rotateTime 60s steps(60) infinite;
-    transform-origin: center bottom;
-  }
-  .minute{
-    animation: rotateTime 60 steps(60) infinite;
-    transform-origin: center bottom;
-  }
-</style>
-<body>
-  <div class="main">
-    <div class="littleCircle">
-      <div class="hour"></div>
-      <div class="minute"></div>
-      <div class="second"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS and CSS Clock</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .main {
+      background: url('https://unsplash.it/1500/1000?image=881&blur=5');
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .littleCircle {
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      border: 30px solid #fff;
+      box-shadow: 0 0 0 2px #000, inset 0 0 0 2px #000;
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+    .hour,
+    .minute,
+    .second {
+      background: #000;
+      width: 10px;
+      height: 175px;
+      position: absolute;
+    }
+    .second {
+      --startSecond: 0deg;
+      --endSecond: 360deg;
+      animation: secondAnimation 60s steps(60) infinite;
+      transform-origin: center bottom;
+    }
+    .minute {
+      height: 135px;
+      top: 40px;
+      --startMinute: 0deg;
+      --endMinute: 360deg;
+      animation: minuteAnimation 3600s linear infinite;
+      transform-origin: center bottom;
+    }
+    .hour {
+      height: 100px;
+      top: 75px;
+      --startHour: 0deg;
+      --endHour: 360deg;
+      animation: hourAnimation 86400s linear infinite;
+      transform-origin: center bottom;
+    }
+    @keyframes secondAnimation {
+      from {
+        transform: rotate(var(--startSecond));
+      }
+      to {
+        transform: rotate(var(--endSecond));
+      }
+    }
+    @keyframes minuteAnimation {
+      from {
+        transform: rotate(var(--startMinute));
+      }
+      to {
+        transform: rotate(var(--endMinute));
+      }
+    }
+    @keyframes hourAnimation {
+      from {
+        transform: rotate(var(--startHour));
+      }
+      to {
+        transform: rotate(var(--endHour));
+      }
+    }
+  </style>
+  <body>
+    <div class="main">
+      <div class="littleCircle">
+        <div class="hour"></div>
+        <div class="minute"></div>
+        <div class="second"></div>
+      </div>
     </div>
-  </div>
-  <script>
-    const hour = new Date().getHours()
-    const minute = new Date().getMinutes()
-    const second = new Date().getSeconds()
-    console.log(hour, minute, second)
-    const hourDeg = hour * 30
-    const minuteDeg = minute * 6
-    const secondDeg = second * 6
-    console.log(hourDeg, minuteDeg, secondDeg)
-  </script>
-</body>
+    <script>
+      const hour = new Date().getHours() * 30
+      const minute = new Date().getMinutes() * 6
+      const second = new Date().getSeconds() * 6
+      const secondDom = document.getElementsByClassName('second')[0]
+      const minuteDom = document.getElementsByClassName('minute')[0]
+      const hourDom = document.getElementsByClassName('hour')[0]
+      secondDom.style.setProperty('--startSecond', `${second}deg`)
+      secondDom.style.setProperty('--endSecond', `${second + 360}deg`)
+      minuteDom.style.setProperty('--startMinute', `${minute}deg`)
+      minuteDom.style.setProperty('--endMinute', `${minute + 360}deg`)
+      hourDom.style.setProperty('--startHour', `${hour}deg`)
+      hourDom.style.setProperty('--endHour', `${hour + 360}deg`)
+    </script>
+  </body>
 </html>
