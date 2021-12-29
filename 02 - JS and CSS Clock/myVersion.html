@@ -36,6 +36,18 @@
     height: 175px;
     position: absolute;
   }
+  @keyframes rotateTime {
+  from { transform: rotateZ(0deg)}
+  to {transform: rotateZ(360deg)}
+  }
+  .second{
+    animation: rotateTime 60s steps(60) infinite;
+    transform-origin: center bottom;
+  }
+  .minute{
+    animation: rotateTime 60 steps(60) infinite;
+    transform-origin: center bottom;
+  }
 </style>
 <body>
   <div class="main">
@@ -50,6 +62,10 @@
     const minute = new Date().getMinutes()
     const second = new Date().getSeconds()
     console.log(hour, minute, second)
+    const hourDeg = hour * 30
+    const minuteDeg = minute * 6
+    const secondDeg = second * 6
+    console.log(hourDeg, minuteDeg, secondDeg)
   </script>
 </body>
 </html>
